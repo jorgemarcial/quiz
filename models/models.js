@@ -34,6 +34,8 @@ exports.Quiz = Quiz; // exportar definición de tabla Quiz
 
 // sequelize.sinc() crea e inicializa tabla preguntas en DB
 
+console.log("ENTROO");
+
 sequelize.sync().success(function() {
         //success(..) ejecuta el manejador una vez creada la tabla.
         Quiz.count().success(function (count) {
