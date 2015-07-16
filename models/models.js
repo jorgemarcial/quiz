@@ -1,5 +1,4 @@
 var path = require('path');
-console.log("JORGE");
 // Postgres DATABASE_URL = postgres://user:passwd@host:port/database
 // SQLite   DATABASE_URL = sqlite://:@:/
 var url = process.env.DATABASE_URL.match(/(.*)\:\/\/(.*?)\:(.*)@(.*)\:(.*)\/(.*)/);
@@ -33,8 +32,6 @@ var Quiz = sequelize.import(quiz_path);
 exports.Quiz = Quiz; // exportar definición de tabla Quiz
 
 // sequelize.sinc() crea e inicializa tabla preguntas en DB
-
-console.log("ENTROO");
 
 sequelize.sync().success(function() {
         //success(..) ejecuta el manejador una vez creada la tabla.
