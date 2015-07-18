@@ -1,22 +1,42 @@
 var titulo = 'Quiz';
 var models = require('../models/models.js');
 
-exports.question = function(req,res) {
-    models.Quiz.findAll().success(function(quiz){
-       res.render('quizes/question', { pregunta: quiz[0].pregunta});
+
+// Autoload :id
+exports.load = function(req, res, next, quizId) {
+    console.log(quizId);
+    models.Quiz.find(quizId).then(
+        function(quiz) {
+            if (quiz) {
+                req.quiz = quiz;
+                next();
+            } else {
+                next(new Error('No existe quizId=' + quizId))
+            }
+        }
+    ).catch(function(error){next(error)});
+};
+
+exports.index = function(req, res) {
+    models.Quiz.findAll().then(function(quiz){
+       res.render('quizes/index', { quizes: quiz});
     });
 };
 
-exports.answer = function(req,res) {
-    models.Quiz.findAll().success(function(quiz){
-        if(req.query.respuesta==quiz[0].respuesta){
-            res.render('quizes/answer', { respuesta: 'Correcto' });
-        }else{
-            res.render('quizes/answer', { respuesta: 'Incorrecto' });
-        }
-    })
+exports.show = function(req, res) {
+    res.render('quizes/show', { quiz: req.quiz});
 };
 
-exports.author = function(req,res) {
-  res.render('quizes/author',{title:titulo,author: 'Jorge Marcial Álvarez Gago'});
+// GET /quizes/:id/answer
+exports.answer = function(req, res) {
+    var resultado = 'Incorrecto';
+    if (req.query.respuesta === req.quiz.respuesta) {
+        resultado = 'Correcto';
+    }
+    res.render('quizes/answer', { quiz: req.quiz, respuesta: resultado});
+};
+
+
+exports.author = function(req, res) {
+    res.render('quizes/author',{title:titulo,author: 'Jorge Marcial Álvarez Gago'});
 };

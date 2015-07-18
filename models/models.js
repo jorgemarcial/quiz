@@ -42,6 +42,14 @@ sequelize.sync().success(function() {
                     pregunta: 'Capital de Italia',
                     respuesta: 'Roma'
                 });
+                Quiz.create({
+                    pregunta: 'Capital de Portugal',
+                    respuesta: 'Lisboa'
+                });
+                Quiz.create({
+                    pregunta: 'Capital de España',
+                    respuesta: 'Madrid'
+                });
             }
         });
     }
