@@ -1,9 +1,17 @@
-<div>
-    <div class="container">
-        <h1>Bienvenido a <%= title %>!!</h1>
-        <p>Portal donde podrás crear tus juegos de preguntas y respuestas.</p>
-        <p>
-            <a class="btn btn-primary btn-lg" href="/quizes">Comience a Jugar</a>
-        </p>
+<div class="row">
+    <div class="col-md-12">
+        <div class="jumbotron">
+            <h1>Bienvenido a <%= title %>!!</h1>
+            <p>Portal donde podrás crear tus juegos de preguntas y respuestas.</p>
+            <p>
+                <form class="form-inline" method="get" action="/quizes" style="font-size: 36px;">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1"></label>
+                        <input ype="text" name="search" class="form-control" placeholder="Buscar preguntas">
+                        <button type="submit" class="btn btn-primary">Comience a Jugar</button>
+                    </div>
+                </form>
+            </p>
+        </div>
     </div>
 </div>

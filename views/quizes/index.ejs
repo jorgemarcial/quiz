@@ -1,11 +1,22 @@
-<table>
-    <% var i; for (i=0; i < quizes.length ; i++) { %>
-        <tr>
-            <td>
-                <a href="quizes/<%= quizes[i].id %>">
-                    <%= quizes[i].pregunta %>
-                </a>
-            </td>
-        </tr>
-    <% } %>
-</table>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-bordered table-hover" style="font-size: 36px;">
+            <thead>
+                <tr>
+                    <th>Preguntas</th>
+                </tr>
+            </thead>
+            <tbody>
+            <% var i; for (i=0; i < quizes.length ; i++) { %>
+            <tr>
+                <td>
+                    <a href="quizes/<%= quizes[i].id %>">
+                        <%= quizes[i].pregunta %>
+                    </a>
+                </td>
+            </tr>
+            <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>
