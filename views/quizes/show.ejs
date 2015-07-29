@@ -1,7 +1,16 @@
-<form method="get" action="/quizes/<%= quiz.id %>/answer" >
-    Pregunta : <%= quiz.pregunta %>
-    <p>
-        <input type="text" name="respuesta" value="" placeholder="Responda aquí">
-        <input type="submit" value="Enviar">
-    </p>
-</form>
+<div class="row">
+    <div class="col-md-12">
+        <div class="jumbotron">
+            <h1>Pregunta : <%= quiz.pregunta %></h1>
+            <p>
+                <form class="form-inline" method="get" action="/quizes/<%= quiz.id %>/answer" style="font-size: 36px;">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1"></label>
+                        <input type="text" name="respuesta" class="form-control" placeholder="Responda aquí">
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                    </div>
+                </form>
+            </p>
+        </div>
+    </div>
+</div>
