@@ -20,7 +20,7 @@ exports.load = function(req, res, next, quizId) {
 exports.new = function(req, res) {
     var quiz = models.Quiz.build(
         {
-            pregunta: "Pregunta", respuesta : "Respuesta"
+            pregunta: "Pregunta", respuesta : "Respuesta" , tag: "tag"
         }
     );
     res.render('quizes/new', {quiz:quiz , errors: []});
@@ -35,7 +35,6 @@ exports.edit = function(req, res) {
 //POST /quizes/create
 exports.create = function (req, res){
     var quiz = models.Quiz.build( req.body.quiz );
-    console.log(quiz);
     quiz
     .validate()
     .then(
@@ -44,7 +43,7 @@ exports.create = function (req, res){
                 res.render('quizes/new', {quiz: quiz, errors: err.errors});
             } else {
             quiz
-            .save({fields: ["pregunta","respuesta"]})
+            .save({fields: ["pregunta","respuesta", "tag"]})
             .then(function(){ res.redirect('/quizes')})
             }
         }
@@ -55,6 +54,7 @@ exports.create = function (req, res){
 exports.update = function(req, res) {
   req.quiz.pregunta  = req.body.quiz.pregunta;
   req.quiz.respuesta = req.body.quiz.respuesta;
+  req.quiz.tag = req.body.quiz.tag;
 
   req.quiz
   .validate()
@@ -64,7 +64,7 @@ exports.update = function(req, res) {
         res.render('quizes/edit', {quiz: req.quiz, errors: err.errors});
       } else {
         req.quiz     // save: guarda campos pregunta y respuesta en DB
-        .save( {fields: ["pregunta", "respuesta"]})
+        .save( {fields: ["pregunta", "respuesta" , "tag"]})
         .then( function(){ res.redirect('/quizes');});
       }     // Redirección HTTP a lista de preguntas (URL relativo)
     }

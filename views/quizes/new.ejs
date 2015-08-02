@@ -1,7 +1,9 @@
 Añadir pregunta:
 
-<form method="post" action="/quizes/create" class="form-inline">
-	<div class="form-group">      
-		<% include _form.ejs %>
+<div class="row">
+    <div class="col-md-12">
+		<form method="post" action="/quizes/create">
+			<% include _form.ejs %>
+		</form>
 	</div>
-</form>
+</div>
