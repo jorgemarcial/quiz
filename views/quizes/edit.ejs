@@ -1,0 +1,8 @@
+<div class="row">
+    <div class="col-md-12">
+    	<h1>Edite la pregunta</h1>
+		<form method="post" action="/quizes/<%= quiz.id %>?_method=put">
+			<% include _form.ejs %>
+		</form>
+	</div>
+</div>

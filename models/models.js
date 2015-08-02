@@ -40,15 +40,18 @@ sequelize.sync().success(function() {
                 // la tabla se inicializa solo si está vacia.
                 Quiz.create({
                     pregunta: 'Capital de Italia',
-                    respuesta: 'Roma'
+                    respuesta: 'Roma',
+                    tag : "humanidades"
                 });
                 Quiz.create({
                     pregunta: 'Capital de Portugal',
-                    respuesta: 'Lisboa'
+                    respuesta: 'Lisboa',
+                    tag : "humanidades"
                 });
                 Quiz.create({
                     pregunta: 'Capital de España',
-                    respuesta: 'Madrid'
+                    respuesta: 'Madrid',
+                    tag : "humanidades"
                 });
             }
         });

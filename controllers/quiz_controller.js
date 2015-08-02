@@ -17,22 +17,84 @@ exports.load = function(req, res, next, quizId) {
     ).catch(function(error){next(error)});
 };
 
+exports.new = function(req, res) {
+    var quiz = models.Quiz.build(
+        {
+            pregunta: "Pregunta", respuesta : "Respuesta" , tag: "tag"
+        }
+    );
+    res.render('quizes/new', {quiz:quiz , errors: []});
+};
+
+exports.edit = function(req, res) {
+    var quiz = req.quiz;
+
+    res.render('quizes/edit', {quiz: quiz, errors:[]});
+}
+
+//POST /quizes/create
+exports.create = function (req, res){
+    var quiz = models.Quiz.build( req.body.quiz );
+    quiz
+    .validate()
+    .then(
+        function (err){
+            if (err) {
+                res.render('quizes/new', {quiz: quiz, errors: err.errors});
+            } else {
+            quiz
+            .save({fields: ["pregunta","respuesta", "tag"]})
+            .then(function(){ res.redirect('/quizes')})
+            }
+        }
+    );
+};
+
+// PUT /quizes/:id
+exports.update = function(req, res) {
+  req.quiz.pregunta  = req.body.quiz.pregunta;
+  req.quiz.respuesta = req.body.quiz.respuesta;
+  req.quiz.tag = req.body.quiz.tag;
+
+  req.quiz
+  .validate()
+  .then(
+    function(err){
+      if (err) {
+        res.render('quizes/edit', {quiz: req.quiz, errors: err.errors});
+      } else {
+        req.quiz     // save: guarda campos pregunta y respuesta en DB
+        .save( {fields: ["pregunta", "respuesta" , "tag"]})
+        .then( function(){ res.redirect('/quizes');});
+      }     // Redirección HTTP a lista de preguntas (URL relativo)
+    }
+  ).catch(function(error){next(error)});
+};
+
+
+// DELETE /quizes/:id
+exports.destroy = function(req, res) {
+    req.quiz.destroy().then( function() {
+        res.redirect('/quizes');
+    }).catch(function(error){next(error)});
+};
+
+
 exports.index = function(req, res) {
 
-    search = req.query.search;
-    if (search != null ) {
-        models.Quiz.findAll({where: ["pregunta like ?", "%"+search+"%"]}).then(function(quizes){
-            res.render('quizes/index', { quizes: quizes});
-        });
+    if (req.query.search != null ) {
+        query = {where: ["pregunta like ?", "%"+req.query.search+"%"]};
     } else {
-        models.Quiz.findAll().then(function(quizes){
-            res.render('quizes/index', { quizes: quizes});
-        });
+        query = {}
     }
+
+    models.Quiz.findAll(query).then(function(quizes){
+        res.render('quizes/index', { quizes: quizes, errors: []});
+    });
 };
 
 exports.show = function(req, res) {
-    res.render('quizes/show', { quiz: req.quiz});
+    res.render('quizes/show', { quiz: req.quiz, errors: []});
 };
 
 // GET /quizes/:id/answer
@@ -41,10 +103,10 @@ exports.answer = function(req, res) {
     if (req.query.respuesta === req.quiz.respuesta) {
         resultado = 'Correcto';
     }
-    res.render('quizes/answer', { quiz: req.quiz, respuesta: resultado});
+    res.render('quizes/answer', { quiz: req.quiz, respuesta: resultado, errors: []});
 };
 
 
 exports.author = function(req, res) {
-    res.render('quizes/author',{title:titulo,author: 'Jorge Marcial Álvarez Gago'});
+    res.render('quizes/author',{title:titulo,author: 'Jorge Marcial Álvarez Gago', errors: []});
 };
