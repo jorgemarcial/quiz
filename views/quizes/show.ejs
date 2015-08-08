@@ -11,6 +11,24 @@
                     </div>
                 </form>
             </p>
+            <p><a href="/quizes/<%= quiz.id %>/comments/new"><button>Nuevo comentario</button></a></p>
+            
+            <table class="table table-bordered table-hover">
+            <thead>
+                <th colspan="2">Comentarios</th>
+            </thead>
+            <tbody>
+            <%for(index in quiz.Comments) { %>
+                <%if(quiz.Comments[index].publicado || session.user) { %>
+                    <tr><td><%=quiz.Comments[index].texto%></td>
+                    <% if (session.user && !quiz.Comments[index].publicado) { %>
+                        <td><a href="/quizes/<%= quiz.id %>/comments/<%=quiz.Comments[index].id%>/publish"><button>Publicar</button></a></td>
+                    <% } %>
+                    </tr>
+                <% } %>
+            <% } %>
+            </tbody>
+            </table>
         </div>
     </div>
 </div>
