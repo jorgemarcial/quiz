@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <!-- Optional theme -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="stylesheets/style.css">
+        <link rel="stylesheet" href="/stylesheets/style.css">
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     </head>
@@ -24,12 +24,21 @@
                         <li class="active"><a href="/quizes/author">Créditos</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="https://github.com/jorgemarcial/quiz" target="_blank">Proyecto Jorge Álvarez en Github</a></li>
+                        <%if(!session.user){%>
+                            <li><a href="/login">Login</a></li>
+                        <%}else{%>
+                            <li><span style="padding-top: 15px;padding-bottom: 15px;line-height: 20px;position: relative;display: block;">
+                                    Welcome <%=session.user.username%>
+                                </span>
+                            </li>
+                            <li><a href="/logout">Logout</a></li>
+                        <%}%>
                     </ul>
                 </nav>
+                
             </header>
             <%- body %>
-            <footer class="top20">
+            <footer class="top20" style="margin-top:2%">
                 <a href="https://github.com/jorgemarcial/quiz" target="_blank">Proyecto Jorge Álvarez en Github</a>
             </footer>
         </div>
